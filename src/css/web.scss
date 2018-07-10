@@ -1,0 +1,143 @@
+@import "variables"; // Variables
+@import "~bootstrap-sass/assets/stylesheets/bootstrap"; // Bootstrap
+/*
+ public.css
+ */
+@charset "utf-8";
+/* CSS Document */
+body,
+dd,
+dl,
+fieldset,
+figure,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+legend,
+ol,
+p,
+select,
+td,
+td,
+textarea,
+th,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 12px "Microsoft YaHei";
+  font-family: Arial, "Microsoft YaHei", SimSun, '\5b8b\4f53', sans-serif !important;
+  word-wrap: break-word;
+}
+
+a,
+del,
+s,
+u {
+  color: #666;
+  text-decoration: none;
+}
+
+.bor0,
+a img,
+fieldset {
+  border: 0;
+}
+
+b,
+em,
+i {
+  font-style: normal;
+  font-weight: 100;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.ind2 {
+  text-indent: 2em;
+}
+
+input,
+textarea {
+  outline: none;
+}
+
+.ic_1 {
+  position: relative;
+  top: -1px;
+}
+
+.ic_2 {
+  position: relative;
+  top: -2px;
+}
+
+.over {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.vcenter {
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+  display: inline-block;
+}
+
+.clear {
+  zoom: 1;
+}
+
+.clear:after {
+  content: "";
+  clear: both;
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.margin {
+  margin: 0 auto;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+a {
+  text-shadow: none !important;
+  color: #848484;
+  transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.1s linear 0s !important;
+  -webkit-transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.1s linear 0s !important;
+  -moz-transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.1s linear 0s !important;
+  -ms-transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.1s linear 0s !important;
+  -o-transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.1s linear 0s !important;
+}
