@@ -4,7 +4,10 @@
 	<div class="recently-title">
 		<h3>{{title}}</h3></div>
 	<div class="recently-moveBox">
-		<div id='recently-moveA' class="recently-move">
+		<div class="noData" v-show='listData.length==0'>
+			暂无数据
+		</div>
+		<div id='recently-moveA' class="recently-move" v-show='listData.length!=0'>
 			<ul id='listA'>
 				<li v-for='item in listData'>
 					<div class="recently-moveBoxItem">
@@ -71,43 +74,18 @@ export default {
 			default: '最近买入'
 		}
 	},
-	mounted() {
-		this.timer = setInterval(() => {
-			this.animation()
-		}, 2000)
-	},
 	methods: {
-		animation() {
-			var x = this.marginTop * (-70) + 'px'
-			this.marginTop++
-				$('#recently-moveA').animate({
-					marginTop: x
-				})
-			if (this.marginTop > 10) {
-				if (this.no == 19) {
-					this.no = 0
-				}
-				this.listData.push([])
-				this.listData[this.listData.length - 1] = {
-					created_at: this.listData[this.no].created_at,
-					nickname: this.listData[this.no].nickname,
-					policy_id: this.listData[this.no].policy_id,
-					stock_name: this.listData[this.no].stock_name,
-					stock_no: this.listData[this.no].stock_no,
-					trade_buy_price: this.listData[this.no].trade_buy_price,
-					trade_buy_quantity: this.listData[this.no].trade_buy_quantity,
-					trade_profit_price: this.listData[this.no].trade_profit_price
-				}
-				this.no++
-			}
-		},
 		goDetail(item) {
 			localStorage.setItem('choosen_id', item.stock_id)
 			localStorage.setItem('choosen_name', item.stock_name)
-			localStorage.setItem('choosen_no', 'sh_' + item.stock_no)
-			this.$router.push({
-				path: '/trade/buy/detail'
-			})
+			localStorage.setItem('choosen_no', item.stock_no)
+			if (item.stock_id != undefined) {
+				this.$router.push({
+					path: '/trade/buy/detail'
+				})
+			} else {
+				console.log(item);
+			}
 		}
 	},
 	beforeDestroy() {

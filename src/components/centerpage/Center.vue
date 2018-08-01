@@ -3,9 +3,9 @@
 <div>
 	<header-nav></header-nav>
 	<div class="center-main">
-		<div class="container top-nav" v-if='!isBank'>
+		<!-- <div class="container top-nav" v-if='!isBank'>
 			<span>您还未绑定银行卡，将影响功能使用 <a class="a" @click="bindingCard">立即绑定</a> </span>
-		</div>
+		</div> -->
 		<div class="container clear">
 			<div class="side_menu">
 				<div class="head_nick">
@@ -35,9 +35,9 @@
 						<el-menu-item index="account">
 							<span slot="title">我的账户</span>
 						</el-menu-item>
-						<el-menu-item index="assets">
+						<!-- <el-menu-item index="assets">
 							<span slot="title">在线充值</span>
-						</el-menu-item>
+						</el-menu-item> -->
 						<el-menu-item index="capital">
 							<span slot="title">资产明细</span>
 						</el-menu-item>
@@ -47,9 +47,9 @@
 						<el-menu-item index="protocol">
 							<span slot="title">相关协议</span>
 						</el-menu-item>
-						<el-menu-item index="accountsafety">
+						<!-- <el-menu-item index="accountsafety">
 							<span slot="title">密码设置</span>
-						</el-menu-item>
+						</el-menu-item> -->
 					</el-menu>
 				</el-col>
 			</div>
@@ -253,7 +253,6 @@ export default {
 					this.cityData.push(this.city[i])
 				}
 			}
-			console.log(this.cityData)
 		},
 		// 验证银行卡号
 		luhnCheck(bankno) {
@@ -324,11 +323,7 @@ export default {
 			return this.$route.path.replace('/', '');
 		},
 		isBank() {
-			if (this.$store.state.AuthUser.has_bank_card == null) {
-				return false
-			} else {
-				return true;
-			}
+			return this.$store.state.AuthUser.has_bank_card
 		}
 	},
 }

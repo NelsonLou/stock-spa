@@ -6,7 +6,9 @@
 		<a class="link" @click='goT1()'>去创建策略</a>
 	</div>
 	<div class="" v-else style="overflow:scroll; width:100%;height:868px;">
-		<sellItem v-for='item in dataList' :key='item.id' class="" :data='item' :fee_rate='fee_rate'></sellItem>
+		<span v-for='(item, index) in dataList' :key='index'>
+			<sellItem class="" :data='item' :fee_rate='fee_rate'></sellItem>
+		</span>
 	</div>
 </div>
 </template>
@@ -47,10 +49,11 @@ export default {
 		}, 5000)
 	},
 	methods: {
+		// 获取数据
 		getDataList() {
 			this.$axios.get(this.$api.stock.point_to_sell_list).then((res) => {
 				this.fee_rate = res.data.fee_rate
-				this.dataList = res.data.data
+				this.dataList = res.data.data.policy
 				if (this.dataList.length == 0) {
 					this.haveData = false
 				} else {

@@ -15,6 +15,11 @@
 						<el-input type="password" placeholder="请输入密码" v-model="form.password" auto-complete="new-password">
 						</el-input>
 					</el-form-item>
+					<el-form-item prop="code">
+						<el-input placeholder="请输入验证码" class="code" v-model="form.code" auto-complete="new-password">
+						</el-input>
+						<img class="img" @click='getVerificationCode()' :src="verificationApi" alt="">
+					</el-form-item>
 					<p class="login-link">
 						<router-link to="/register" style="color:#007bfe;">免费注册</router-link>
 						<a @click='dialogWPwd = true' style="margin-right:10px;">忘记密码?</a>
@@ -56,11 +61,14 @@ import HeaderNav from './common/HeaderNav'
 export default {
 	data() {
 		return {
+			// 验证码
+			Randomcode: '',
+			verificationApi: '',
+			// **********
 			dialogWPwd: false, // 弹窗控制
 			sendSmsBtn: false, // 控制发送短信验证码
 			sendSmsTxt: '发送短信验证码', // 控制发送短信验证码
-			/*btn: false,*/
-			timer: null,
+			timer: null, // 定时器
 			loadFail: false,
 			formPwd: {
 				mobile: null,
@@ -69,7 +77,8 @@ export default {
 			},
 			form: {
 				tel: '',
-				password: ''
+				password: '',
+				code: '',
 			},
 			loadapi: 'api/login',
 			rules: {
@@ -124,19 +133,23 @@ export default {
 		FootNav,
 		HeaderNav
 	},
+	mounted() {
+		this.getVerificationCode()
+	},
 	methods: {
 		login: function() {
 			if (!this.form.tel || !this.form.password) return
 			let formData = {
 				mobile: this.form.tel,
-				password: md5(this.form.password)
+				password: md5(this.form.password),
+				encode: this.Randomcode,
+				code: this.form.code
 			}
 			this.$store.dispatch('loginRequest', formData).then(response => {
 				this.$router.push({
 					path: '/center'
 				});
 				if (this.$store.state.AuthUser.loginIsFail) {
-					//console.log(this.$store.state.AuthUser.loginIsFail);
 					this.loadFail = true;
 				}
 			})
@@ -190,6 +203,26 @@ export default {
 			this.sendSmsTxt = '发送验证码'
 			this.sendSmsBtn = false
 		},
+		// 获取验证码
+		getVerificationCode() {
+			this.Randomcode = this.RandomNum(1, 100)
+			this.verificationApi = this.$api.config.url + this.$api.user.code + this.Randomcode
+		},
+		randomString(len) {　　
+			var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/ 　　
+			var maxPos = $chars.length;　　
+			var pwd = '';　　
+			for (let i = 0; i < len; i++) {　　　　
+				pwd += $chars.charAt(Math.floor(Math.random() * maxPos));　　
+			}　　
+			return pwd;
+		},
+		RandomNum(Min, Max) {
+			var Range = Max - Min;
+			var Rand = Math.random();
+			var num = Min + Math.floor(Rand * Range);
+			return this.randomString(num)
+		},
 	},
 	beforeDestroy() {
 		clearInterval(this.timer)
@@ -213,7 +246,6 @@ export default {
 	margin-top: 130px;
 	border: 1px solid #d9d9d9;
 	width: 380px;
-	height: 326px;
 	border-radius: 4px;
 	padding: 20px 30px;
 }
@@ -250,5 +282,17 @@ export default {
 	text-align: center;
 	font-size: 14px;
 	color: red;
+}
+
+.img {
+	width: 100px;
+	height: 35px;
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.code {
+	display: inline-block;
+	width: 50%;
 }
 </style>

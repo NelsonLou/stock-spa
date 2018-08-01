@@ -189,11 +189,10 @@ export default {
 	},
 	computed: {
 		idCard() {
-			return this.$store.state.AuthUser.verified;
+			return this.$store.getters.codeid;
 		}
 	},
 	mounted() {
-		console.log(this.idCard);
 		if (this.idCard) {
 			this.hasID = false;
 		} else {

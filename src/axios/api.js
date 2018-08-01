@@ -1,11 +1,7 @@
 // 系统配置参数
 // const version = 'v1'
-const domain = '47.96.14.156'
 export const config = {
-  // headers: {
-  //   Accept: `application/vnd.ideabuy.${version}+json`
-  // },
-  url: `http://${domain}`, // 接口地址
+  url: (process.env.NODE_ENV == 'production') ? 'https://api.jncelue.com' : (process.env.NODE_ENV == 'development') ? 'https://api.maiguokj.com' : 'https://api.maiguokj.com',
   limit: 10 // 每页显示条目个数
 }
 // 系统基础接口映射
@@ -13,7 +9,7 @@ export const config = {
 //发送验证码 type  1:注册验证码；2:忘记登录密码验证码；3:发送设置提现密码的短信，发送忘记提现密码的短信
 
 export const user = {
-  login: '/api/login', // 登录
+  login: '/api/web-login', // 登录
 
   logout: '/api/logout', // 登出
 
@@ -44,6 +40,8 @@ export const user = {
   balance_trans:'api/balance-trans', // 策略余额转入转出钱包余额接口
 
   id_card_certification:'/api/id-card-certification', // 实名认证
+
+  code: '/code/',// 登录验证码
 }
 
 export const other = {

@@ -87,7 +87,7 @@ axios.interceptors.request.use(function(config){
  　　return response
  }, function (error) {
  　　// 对响应错误做点什么
-     console.log(error.response)
+     console.log(error)
     Message.error(error.response.data.message)
  　　return Promise.reject(error.response)
  });

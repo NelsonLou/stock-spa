@@ -18,9 +18,6 @@
 				<el-carousel-item>
 					<img src="../assets/img/indexbg2.png" alt="" style="display:block;width:100%;min-height:750px;">
 				</el-carousel-item>
-				<el-carousel-item>
-					<img src="../assets/img/indexbg3.png" alt="" style="display:block;width:100%;min-height:750px;">
-				</el-carousel-item>
 			</el-carousel>
 		</div>
 		<!-- 锚点导航 -->
@@ -42,51 +39,19 @@
 						模拟策略分享
 					</div>
 				<div class="indexTab">
-					<ul class="tabTitle" @click="tabClick">
+					<ul class="tabTitle">
 					<li :class="{active:isMakeMoney}" id="makeMoney">最赚钱</li>
-					<!-- <li :class="{active:isSteady}" id="steady">最稳健</li>
-					<li :class="{active:isHot}" id="hot">最人气</li> -->
 					</ul>
-					<div class="indexTab1" v-if="isMakeMoney">
-						<el-carousel trigger="click" :autoplay="false" height="560px" indicator-position="none" >
+					<div class="indexTab3">
+						<div class="noData"  v-if='policies.length==0'>
+							暂无数据
+						</div>
+						<el-carousel trigger="click" v-else :autoplay="false" height="560px" indicator-position="none">
 							<el-carousel-item>
-								<div class="">
-									<stock-show
-									v-for="item in policies"
-									v-bind:policyItem="item"
-									v-bind:key="item.id"></stock-show>
-								</div>
-							</el-carousel-item>
-						</el-carousel>
-					</div>
-					<div class="indexTab2" v-if="isSteady">
-						<el-carousel trigger="click" :autoplay="false" height="560px" indicator-position="none">
-							<el-carousel-item>
-							<div class="">
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-							</div>
-							</el-carousel-item>
-						</el-carousel>
-					</div>
-					<div class="indexTab3" v-if="isHot">
-						<el-carousel trigger="click" :autoplay="false" height="560px" indicator-position="none">
-							<el-carousel-item>
-							<div class="">
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
-								<stock-show></stock-show>
+							<div class="" >
+								<span v-for='(item, index) in policies'>
+									<stock-show :policyItem='item'></stock-show>
+								</span>
 							</div>
 							</el-carousel-item>
 						</el-carousel>
@@ -108,11 +73,6 @@
 				</el-card>
 			</div>
 		</div>
-		<!-- <div class="home-fourth-screen">
-			<div class="container wow bounceInLeft">
-				<img src="../assets/img/a.png" alt="">
-			</div>
-		</div> -->
 		<div class="bg-banner">
 			<div class="container">
 			<div class="friend-top">
@@ -142,7 +102,6 @@ export default {
 			isMakeMoney: true,
 			isSteady: false,
 			id: '',
-			isHot: false,
 			item: {
 				ImgList: ["../assets/img/indexbg.png", "../assets/img/indexbg1.png", "../assets/img/indexbg2.png", "../assets/img/indexbg3.png"]
 			},
@@ -157,17 +116,7 @@ export default {
 				trade_buy_quantity: '',
 				trade_profit_price: ''
 			}],
-			listDataB: [{
-				created_at: '',
-				nickname: '',
-				policy: '',
-				stock_id: '',
-				stock_name: '',
-				stock_no: '',
-				trade_buy_price: '',
-				trade_buy_quantity: '',
-				trade_profit_price: ''
-			}],
+			listDataB: [],
 			titleA: '最近买入',
 			titleB: '最近获利'
 		}
@@ -197,9 +146,13 @@ export default {
 		getRecentlyA() {
 			this.$axios.get(this.$api.other.policy_release_list).then(res => {
 				var a = res.data.data
-				for (let i = 0; i < a.length; i++) {
-					if (a[i].nickname.length > 4) {
-						a[i].nickname = a[i].nickname.substring(0, 3) + '...'
+				if (a.length > 0) {
+					for (let i = 0; i < a.length; i++) {
+						if (a[i].nickname == null) {
+							a[i].nickname = '--'
+						} else if (a[i].nickname.length > 4) {
+							a[i].nickname = a[i].nickname.substring(0, 4) + '...'
+						}
 					}
 				}
 				this.listDataA = a
@@ -210,9 +163,13 @@ export default {
 		getRecentlyB() {
 			this.$axios.get(this.$api.other.policy_profit_list).then(res => {
 				var b = res.data.data
-				for (let i = 0; i < b.length; i++) {
-					if (b[i].nickname.length > 4) {
-						b[i].nickname = b[i].nickname.substring(0, 4) + '...'
+				if (b.length > 0) {
+					for (let i = 0; i < b.length; i++) {
+						if (b[i].nickname == null) {
+							b[i].nickname = '--'
+						} else if (b[i].nickname.length > 4) {
+							b[i].nickname = b[i].nickname.substring(0, 4) + '...'
+						}
 					}
 				}
 				this.listDataB = b
@@ -220,32 +177,6 @@ export default {
 				console.log(err);
 			})
 		},
-		handleClick(tab, event) {},
-		tabClick(ev) {
-			var ev = ev || window.event;
-			var target = ev.target || ev.srcElement;
-			if (target.nodeName.toLocaleLowerCase() == 'li') {
-				switch (target.id) {
-					case 'makeMoney':
-						this.isMakeMoney = true;
-						this.isSteady = false;
-						this.isHot = false;
-						this.getMostProfitable()
-						break;
-					case 'hot':
-						this.isMakeMoney = false;
-						this.isSteady = false;
-						this.isHot = true;
-						break;
-					case 'steady':
-						this.isMakeMoney = false;
-						this.isSteady = true;
-						this.isHot = false;
-						break;
-					default:
-				}
-			}
-		}
 	}
 }
 </script>
@@ -412,5 +343,10 @@ export default {
 
 .right {
 	float: right;
+}
+
+.noData {
+	font-size: 30px;
+	text-align: center;
 }
 </style>

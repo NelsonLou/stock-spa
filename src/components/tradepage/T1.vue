@@ -109,8 +109,6 @@
 	<!-- <div id="container" style="min-width:400px;height:400px;"></div> -->
 </div>
 </template>
-
-
 <script>
 import TimeSharing from "./chart/TimeSharing"
 import KLine from "./chart/KLine"
@@ -131,86 +129,96 @@ export default {
 			restaurants: [],
 			state2: '',
 			listData: [{ // 组件传入数据
-				stock_name: '',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
+					stock_name: '',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
 				},
-				minuteData: ''
-			}, {
-				stock_name: '-',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
+				{
+					stock_name: '-',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
 				},
-				minuteData: ''
-			}, {
-				stock_name: '-',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
+				{
+					stock_name: '-',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
 				},
-				minuteData: ''
-			}, {
-				stock_name: '-',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
+				{
+					stock_name: '-',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
 				},
-				minuteData: ''
-			}, {
-				stock_name: '-',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
+				{
+					stock_name: '-',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
 				},
-				minuteData: ''
-			}, {
-				stock_name: '-',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
+				{
+					stock_name: '-',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
 				},
-				minuteData: ''
-			}, {
-				stock_name: '-',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
+				{
+					stock_name: '-',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
 				},
-				minuteData: ''
-			}, {
-				stock_name: '-',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
+				{
+					stock_name: '-',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
 				},
-				minuteData: ''
-			}, {
-				stock_name: '-',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
+				{
+					stock_name: '-',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
 				},
-				minuteData: ''
-			}, {
-				stock_name: '-',
-				stock_id: 16381,
-				quotation: {
-					current_price: '',
-					ups_and_downs: ''
-				},
-				minuteData: ''
-			}],
+				{
+					stock_name: '-',
+					stock_id: 16381,
+					quotation: {
+						current_price: '',
+						ups_and_downs: ''
+					},
+					minuteData: ''
+				}
+			],
 			loadingInstance: {}, // loading控件
 			minuteData: {},
 			stock_list: [],
@@ -272,6 +280,7 @@ export default {
 			})
 		},
 		// 股票列表数据刷新
+		// 0:id 1:当前价格 2：ups_and_downs 3：quote_change
 		getDataOnTime() {
 			var para = ""
 			for (var i = 0; i < this.listData.length; i++) {
@@ -286,26 +295,30 @@ export default {
 			this.$axios.post(this.$api.stock.quotation_list, {
 				stock_id_list: para
 			}).then(res => {
-				if (res.data.data[0].quotation.current_price == 0) {
+				let arr = res.data.data.split(';')
+				for (let i in arr) {
+					arr[i] = arr[i].split(',')
+				}
+				if (arr[0][1] == 0) {
 					this.stock_list_normal[0].quotation.current_price = '--'
 				} else {
-					this.stock_list_normal[0].quotation.current_price = res.data.data[0].quotation.current_price
+					this.stock_list_normal[0].quotation.current_price = arr[0][1]
 				}
-				if (res.data.data[1].quotation.current_price == 0) {
+				if (arr[1][1] == 0) {
 					this.stock_list_normal[1].quotation.current_price = '--'
 				} else {
-					this.stock_list_normal[1].quotation.current_price = res.data.data[1].quotation.current_price
+					this.stock_list_normal[1].quotation.current_price = arr[1][1]
 				}
-				this.stock_list_normal[0].quotation.ups_and_downs = res.data.data[0].quotation.ups_and_downs
-				this.stock_list_normal[0].quotation.quote_change = res.data.data[0].quotation.quote_change
-				this.stock_list_normal[1].quotation.ups_and_downs = res.data.data[1].quotation.ups_and_downs
-				this.stock_list_normal[1].quotation.quote_change = res.data.data[1].quotation.quote_change
+				this.stock_list_normal[0].quotation.ups_and_downs = arr[0][2]
+				this.stock_list_normal[0].quotation.quote_change = arr[0][3]
+				this.stock_list_normal[1].quotation.ups_and_downs = arr[1][2]
+				this.stock_list_normal[1].quotation.quote_change = arr[1][3]
 				for (let i = 0; i < 10; i++) {
-					if (res.data.data[i].quotation.current_price == 0) {
+					if (arr[i + 2][1] == 0) {
 						this.listData[i].quotation.current_price = '--'
 					} else {
-						this.listData[i].quotation.current_price = res.data.data[i + 2].quotation.current_price;
-						this.listData[i].quotation.ups_and_downs = res.data.data[i + 2].quotation.ups_and_downs;
+						this.listData[i].quotation.current_price = arr[i + 2][1];
+						this.listData[i].quotation.ups_and_downs = arr[i + 2][2];
 					}
 				}
 			}).catch(err => {

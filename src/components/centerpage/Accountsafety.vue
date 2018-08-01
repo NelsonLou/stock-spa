@@ -248,9 +248,6 @@ export default {
 			},
 		}
 	},
-	created() {
-		console.log(this.$store.state.AuthUser)
-	},
 	methods: {
 		// 修改登录密码
 		setLPwd() {
@@ -352,10 +349,10 @@ export default {
 	},
 	computed: {
 		mobile() {
-			return this.$store.state.AuthUser.mobile
+			return this.$store.getters.mobile
 		},
 		has_withdraw_pwd() {
-			return this.$store.state.AuthUser.has_withdraw_pwd
+			return this.$store.getters.has_withdraw_pwd
 		}
 	},
 	beforeDestroy() {

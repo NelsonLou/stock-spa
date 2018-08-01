@@ -414,7 +414,6 @@ export default {
 		quotation: {
 			handler: function(val, oldval) {
 				if (!this.state) {
-					console.log('监听价格')
 					this.handleStockNum()
 				}
 			},

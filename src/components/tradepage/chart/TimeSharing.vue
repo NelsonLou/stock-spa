@@ -69,26 +69,30 @@ export default {
 	},
 	methods: {
 		goDetail() {
-			if (this.sharesInfo.stock_market == 0) {
-				var market = 'sz'
+			if (this.$store.state.AuthUser.authenticated == false) {
+				this.$Message.warning('请先登录')
+				this.$router.push('/login')
 			} else {
-				var market = 'sh'
+				if (this.sharesInfo.stock_market == 0) {
+					var market = 'sz'
+				} else {
+					var market = 'sh'
+				}
+				localStorage.setItem('choosen_id', this.sharesInfo.stock_id)
+				localStorage.setItem('choosen_name', this.sharesInfo.stock_name)
+				localStorage.setItem('choosen_no', market + this.sharesInfo.stock_no)
+				this.$router.push({
+					path: '/trade/buy/detail'
+				})
 			}
-			localStorage.setItem('choosen_id', this.sharesInfo.stock_id)
-			localStorage.setItem('choosen_name', this.sharesInfo.stock_name)
-			localStorage.setItem('choosen_no', market + this.sharesInfo.stock_no)
-			this.$router.push({
-				path: '/trade/buy/detail'
-			})
+
 		},
 		// 初始化表格
 		getOptionData(resId) {
 			var x = this.handleSplite(this.sharesInfo.minuteData)
 			if (this.sharesInfo.minuteData != '') {
 				this.myEcharts.setOption(this.handleSplite(this.sharesInfo.minuteData))
-			} else {
-				console.log('暂无数据')
-			}
+			} else {}
 		},
 		// 处理option数据
 		handleSplite(rowOption) {
@@ -238,7 +242,7 @@ export default {
 				}]
 			}
 		}
-	}
+	},
 }
 </script>
 <style scoped>

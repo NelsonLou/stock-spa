@@ -38,7 +38,7 @@ export default {
             state.simulation_available_balance = payload.user.simulation_available_balance; //当前模拟可用余额
             state.withdraw_amount = payload.user.withdraw_amount; // 提现中金额
             state.has_withdraw_pwd = payload.user.has_withdraw_pwd; // 是否设置体现密码
-            state.has_bank_card = payload.user.has_bank_card; // 是否绑定银行卡
+            state.has_bank_card = payload.user.bank_card_no==''?false:true; // 是否绑定银行卡
         },
         [UNSET_AUTH_USER](state) {
             state.authenticated = false;
@@ -97,8 +97,29 @@ export default {
         }
     },
     getters: {
-        AvailableAmount : state => {
+        AvailableAmount: state => {
             return state.availableAmount
-        }
+        },
+        codeid: state => {
+            return state.codeid
+        },
+        name: state => {
+            return state.name
+        },
+        has_bank_card: state => {
+            return state.has_bank_card
+        },
+        mobile: state => {
+            return state.mobile
+        },
+		wallet: state => {
+			return state.wallet
+		},
+		frozenAmount: state => {
+			return state.frozenAmount
+		},
+		has_withdraw_pwd: state => {
+			return state.has_withdraw_pwd
+		}
     }
 }

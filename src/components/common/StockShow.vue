@@ -4,34 +4,26 @@
     <div class="item-wrap">
       <div class="share-item">
         <div class="share-item-name clear">
-			<!--<div class="share-item-name-left left">
-				<img src="" alt="">
-			</div>-->
 			<div class="share-item-name-right left">
 				<div class="share-item-name-right-phone">
-				{{policyItem.nickname}}
+				{{policyItem.name}}
 				</div>
 				<div class="share-item-name-right-time">
-				<span>最近发布时间:</span>
-				<i>{{policyItem.time}}</i>
+				<span>平均持股周期:</span>
+				<i>{{policyItem.hold_avg}}天</i>
 				</div>
 			</div>
         </div>
         <div class="share-item-rate clear">
           <div class="share-item-rate-left left">
-            <p>{{policyItem.rate}}</p>
+            <p>{{policyItem.profit_rate.toFixed(2)}}%</p>
             <span>30天收益</span>
           </div>
           <div class="share-item-rate-right left">
-            <p>{{policyItem.win_rate}}</p>
-            <span>30天胜率</span>
+            <p>{{policyItem.win_rate.toFixed(2)}}%</p>
+            <span>总胜率</span>
           </div>
         </div>
-        <!-- <div class="share-item-hot clear">
-          <span class="left">263 <i>人气</i></span>
-          <span class="right" :class="{'el-icon-star-off' : offFans , 'el-icon-star-on' : onFans}" @click="fans">
-          </span>
-        </div> -->
       </div>
     </div>
   </div>

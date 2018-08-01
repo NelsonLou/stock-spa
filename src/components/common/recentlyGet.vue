@@ -4,7 +4,10 @@
 	<div class="recently-title">
 		<h3>{{title}}</h3></div>
 	<div class="recently-moveBox">
-		<div id='recently-move' class="recently-move">
+		<div class="noData" v-show='listData.length==0'>
+			暂无数据
+		</div>
+		<div id='recently-move' class="recently-move" v-show='listData.length!=0'>
 			<ul id='listA'>
 				<li v-for='item in listData'>
 					<div class="recently-moveBoxItem">
@@ -12,7 +15,7 @@
 						<span style="color:#8b8b8b;">{{item.created_at}}</span>
 					</div>
 					<div class="recently-moveBoxItem">
-						<span>{{item.stock_name}}</span>
+						<span style="color:#bb7708;">{{item.stock_name}}</span>
 						<span style="color:#8b8b8b;">{{item.trade_buy_quantity}}</span>
 					</div>
 					<div class="recently-moveBoxItem">
@@ -32,7 +35,7 @@
 export default {
 	data() {
 		return {
-			timer: null,
+			timerA: null,
 			marginTop: 0,
 			marginTopA: 0,
 			marginTopB: 0,
@@ -61,37 +64,7 @@ export default {
 			default: '最近买入'
 		}
 	},
-	mounted() {
-		this.timer = setInterval(() => {
-			this.animation()
-		}, 2000)
-	},
 	methods: {
-		animation() {
-			var x = this.marginTop * (-70) + 'px'
-			this.marginTop++
-				$('#recently-move').animate({
-					marginTop: x
-				})
-			if (this.marginTop > 10) {
-				if (this.no == this.listData.length - 1) {
-					this.no = 0
-				}
-				this.listData.push([])
-				this.listData[this.listData.length - 1] = {
-					created_at: this.listData[this.no].created_at,
-					individual_profit: this.listData[this.no].individual_profit,
-					nickname: this.listData[this.no].nickname,
-					policy_id: this.listData[this.no].policy_id,
-					stock_id: this.listData[this.no].stock_id,
-					stock_market: this.listData[this.no].stock_market,
-					stock_name: this.listData[this.no].stock_name,
-					stock_no: this.listData[this.no].stock_no,
-					trade_buy_quantity: this.listData[this.no].trade_buy_quantity
-				}
-				this.no++;
-			}
-		},
 		goDetail(item) {
 			localStorage.setItem('choosen_id', item.stock_id)
 			localStorage.setItem('choosen_name', item.stock_name)
@@ -102,7 +75,7 @@ export default {
 		}
 	},
 	beforeDestroy() {
-		clearInterval(this.timer)
+		clearInterval(this.timerA)
 	}
 }
 </script>
@@ -167,5 +140,11 @@ export default {
 	border: 1px solid #f4282e;
 	border-radius: 4px;
 	margin-left: 10px;
+}
+
+.noData {
+	text-align: center;
+	padding-top: 100px;
+	font-size: 39px;
 }
 </style>

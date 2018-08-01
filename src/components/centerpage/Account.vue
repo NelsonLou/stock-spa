@@ -15,8 +15,8 @@
 					</p>
 				</div>
 				<div class="row-btn">
-					<button class="button recharge" @click="RechargeMoney">充值</button>
-					<button class="button withdraw" @click="dialogShow('a')">提现</button>
+					<!-- <button class="button recharge" @click="RechargeMoney">充值</button> -->
+					<!-- <button class="button withdraw" @click="dialogShow('a')">提现</button> -->
 				</div>
 			</div>
 			<div class="strategy-row">
@@ -31,8 +31,8 @@
 					</p>
 				</div>
 				<div class="row-btn">
-					<button class="button btn-empty" @click='dialogShow("b")'>转入</button>
-					<button class="button btn-empty" @click='dialogShow("c")'>转出</button>
+					<!-- <button class="button btn-empty" @click='dialogShow("b")'>转入</button> -->
+					<!-- <button class="button btn-empty" @click='dialogShow("c")'>转出</button> -->
 				</div>
 			</div>
 			<div class="money-info">
@@ -192,7 +192,6 @@ export default {
 			}
 		}
 	},
-	created() {},
 	methods: {
 		tipChange() {
 			axios.post(this.$api.user.recharge, {
@@ -293,20 +292,19 @@ export default {
 	},
 	computed: {
 		mobile() {
-			return this.$store.state.AuthUser.mobile
+			return this.$store.getters.mobile
 		},
 		wallet() {
-			return this.$store.state.AuthUser.wallet
+			return this.$store.getters.wallet
 		},
 		AvailableAmount() {
-			return this.$store.state.AuthUser.availableAmount
+			return this.$store.getters.AvailableAmount
 		},
 		frozenAmount() {
-			return this.$store.state.AuthUser.frozenAmount
+			return this.$store.getters.frozenAmount
 		},
 		has_withdraw_pwd() {
-			console.log(this.$store.state.AuthUser.has_withdraw_pwd)
-			return this.$store.state.AuthUser.has_withdraw_pwd
+			return this.$store.getters.has_withdraw_pwd
 		}
 	}
 }

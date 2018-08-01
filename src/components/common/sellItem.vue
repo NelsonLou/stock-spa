@@ -80,7 +80,7 @@
 			</div>
 		</div>
 		<div slot="footer" class="dialog-footer">
-			<el-button :disabled='BtnStatus' type="primary" @click='dialogTips = true'>{{data.status_name}}</el-button>
+			<!-- <el-button :disabled='BtnStatus' type="primary" @click='dialogTips = true'>{{data.status_name}}</el-button> -->
 			<el-button @click="dialogInfo = false">确定</el-button>
 		</div>
 	</el-dialog>
@@ -192,8 +192,9 @@ export default {
 			default: 0.7,
 		}
 	},
-	created() {},
-	mounted() {},
+	mounted() {
+		console.log(this.data);
+	},
 	watch: {
 		// 监听止盈价
 		trade_profit_price: {

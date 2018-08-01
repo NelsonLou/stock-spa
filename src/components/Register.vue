@@ -53,7 +53,7 @@
 							<!-- <input id="ckbAgreement" type="checkbox" checked="checked" style="cursor:pointer;"> -->
 							<el-checkbox v-model="checked"></el-checkbox>
 							<label for="ckbAgreement" style="margin-left:10px;cursor:pointer;">我已阅读并同意</label>
-							<a href="javascript:void(0)" style="color:#007bfe;">《草船策略网站服务协议》</a>
+							<a href="javascript:void(0)" style="color:#007bfe;">《江南策略网站服务协议》</a>
 						</div>
 						<div class="reg-link">
 							<span style="float:left;color:red;">{{errText}}</span>

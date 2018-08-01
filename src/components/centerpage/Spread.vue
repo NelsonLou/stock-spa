@@ -27,13 +27,12 @@
 				<div class="spread-content-sepLine"></div>
 				<div class="shareRight">
 					<div>方式二： 分享二维码给好友</div>
-					<div id="qrcode" class="qrcode"><img src="../../assets/img/erwei.png" width="90">
-					</div>
-					<div style="margin-top:15px;color:#54b5fc;">微信扫一扫，分享给好友</div>
 				</div>
+				<div style="margin-top:15px;color:#54b5fc;">微信扫一扫，分享给好友</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 </template>
 <script>

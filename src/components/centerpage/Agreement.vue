@@ -1,17 +1,16 @@
 <!-- 协议详细 -->
 <template>
 <div id="" class="agreement-box">
-	<div class="" v-show='type'>
-		<img src="../../assets/img/AgreementA/A.jpg" alt="">
-		<img src="../../assets/img/AgreementA/B.jpg" alt="">
-		<img src="../../assets/img/AgreementA/C.jpg" alt="">
-		<img src="../../assets/img/AgreementA/D.jpg" alt="">
+	<div class="" v-if='type==1'>
+		<img src="../../assets/img/Agreement/A.png" alt="">
+		<img src="../../assets/img/Agreement/B.png" alt="">
+		<img src="../../assets/img/Agreement/C.png" alt="">
 	</div>
-	<div class="" v-show='!type'>
-		<img src="../../assets/img/AgreementB/A.jpg" alt="">
-		<img src="../../assets/img/AgreementB/B.jpg" alt="">
-		<img src="../../assets/img/AgreementB/C.jpg" alt="">
-		<img src="../../assets/img/AgreementB/D.jpg" alt="">
+	<div class="" v-else>
+		<img src="../../assets/img/juJian/A.png" alt="">
+		<img src="../../assets/img/juJian/B.png" alt="">
+		<img src="../../assets/img/juJian/C.png" alt="">
+		<img src="../../assets/img/juJian/D.png" alt="">
 	</div>
 </div>
 </template>
@@ -19,14 +18,10 @@
 export default {
 	name: "",
 	data: () => ({
-		type: true,
+		type: '',
 	}),
 	created() {
-		if (this.$route.query.type == 1) {
-			this.type = true
-		} else {
-			this.type = false
-		}
+		this.type = this.$route.query.type
 	}
 }
 </script>

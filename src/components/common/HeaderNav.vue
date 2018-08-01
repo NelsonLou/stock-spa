@@ -10,15 +10,15 @@
 				<li>
 					<router-link to="/" class="navigator2-a" :class="{ active: isIndexPage}">首页</router-link>
 				</li>
-				<li>
-					<router-link to="/introducation" class="navigator2-a" :class="{ active: isNewPage}">新手攻略</router-link>
-				</li>
+				<!-- <li>
+    					<router-link to="/introducation" class="navigator2-a" :class="{ active: isNewPage}">新手攻略</router-link>
+    				</li> -->
 				<li>
 					<router-link to="/trade" class="navigator2-a" :class="{ active: isTradePage}">创建策略</router-link>
 				</li>
-				<li>
+				<!-- <li>
 					<router-link to="/sim" class="navigator2-a" :class="{ active: isSimPage}">模拟策略</router-link>
-				</li>
+				</li> -->
 				<!-- <li><router-link to="/" class="navigator2-a">高手跟踪</router-link></li> -->
 				<!-- <li><router-link to="/" class="navigator2-a">互动社区</router-link></li> -->
 				<li class="logined-li" v-if="!user.nickname">

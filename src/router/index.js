@@ -107,6 +107,10 @@ const router = new Router({
     routes
 })
 router.beforeEach((to, from, next) => {
+    // 判断股票id是否为空
+    if(to.path == '/trade/buy/detail' && localStorage.choosen_id == undefined){
+        return next({path: '/trade/buy/t1'});
+    }
     // 判断用户是否可进入创建策略页面
     if(to.path == '/trade/buy/detail'||to.fullPath == '/trade/buy/detail'){
         if(localStorage.getItem('choosen_id')==null){

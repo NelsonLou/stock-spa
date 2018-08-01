@@ -9,7 +9,8 @@
 		"start": "npm run dev",
 		"e2e": "node test/e2e/runner.js",
 		"test": "npm run e2e",
-		"build": "node build/build.js"
+		"build": "node build/build.js",
+		"release": "node build/build.js"
 	},
 	"dependencies": {
 		"axios": "^0.17.1",
